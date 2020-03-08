@@ -6,11 +6,11 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 const AppContainer = () => {
-    return (
-        <Router>
-            <App />
-        </Router>
-    );
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
 };
 
 
