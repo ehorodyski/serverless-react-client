@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
-import useAuth from '../shared/hooks/useAuth';
+import { useUser } from '../shared/hooks/useUser';
 import './Login.css';
 
-const LoginPage = (props) => {
+const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useAuth();
+  const { login } = useUser();
 
   const validateForm = () => {
     return email.length > 0 && password.length > 0;
@@ -15,6 +15,7 @@ const LoginPage = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     login(email, password);
+
   };
 
   return (

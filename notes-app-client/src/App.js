@@ -1,14 +1,18 @@
 import React from 'react';
+import Header from './shared/components/Header';
 import Routes from './shared/Routes';
-import Header from './shared/Header'
+import { UserProvider } from './shared/hooks/useUser';
 import './App.css';
 
 const App = (props) => {
+
   return (
-    <div className="App container">
-      <Header />
-      <Routes />
-    </div>
+    <UserProvider>
+      <div className="App container">
+        <Header title="Foo"></Header>
+        <Routes />
+      </div>
+    </UserProvider>
   );
 };
 export default App;
