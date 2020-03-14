@@ -28,7 +28,34 @@ export const UserProvider = ({ children }) => {
     return data;
   };
 
-  const values = useMemo(() => ({ user, error, login, logout }), [user, error]);
+  const register = async (email, password) => {
+    try {
+      const user = await Auth.signUp({
+        username: email,
+        password: password
+      });
+      return user;
+    } catch (e) {
+      setError(e);
+    }
+  };
+
+  const confirmRegistration = async (email, code) => {
+    try {
+      await Auth.confirmSignUp(email, code);
+    } catch (e) {
+      setError(e);
+    }
+  };
+
+  const values = useMemo(() => ({
+    user,
+    error,
+    confirmRegistration,
+    login,
+    logout,
+    register
+  }), [user, error]);
 
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>;
 };

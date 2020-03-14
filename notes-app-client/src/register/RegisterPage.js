@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { HelpBlock, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import LoaderButton from '../shared/components/LoaderButton';
 import { useFormFields } from '../shared/hooks/useFormFields';
+import { useUser } from '../shared/hooks/useUser';
 import './Register.css';
 
-const RegisterPage = (props) => {
+const RegisterPage = ({ history }) => {
   const [fields, handleFieldChange] = useFormFields({
     email: '',
     password: '',
@@ -13,6 +14,7 @@ const RegisterPage = (props) => {
   });
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { login, confirmRegistration, register } = useUser();
 
   const validateForm = () => {
     return (
@@ -30,14 +32,29 @@ const RegisterPage = (props) => {
     event.preventDefault();
     setIsLoading(true);
 
-    setUser("test");
-
-    setIsLoading(false);
+    try {
+      const user = await register(fields.email, fields.password);
+      setUser(user);
+    } catch (e) {
+      alert(e.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleConfirmationSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
+
+    try {
+      await confirmRegistration(fields.email, fields.confirmationCode);
+      await login(fields.email, fields.password);
+      setIsLoading(false);
+      history.push('/');
+    } catch (e) {
+      alert(e.message);
+      setIsLoading(false);
+    }
   };
 
   const renderConfirmationForm = () => {
