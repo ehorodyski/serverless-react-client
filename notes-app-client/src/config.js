@@ -36,5 +36,6 @@ export default {
         region: config.apiGateway.REGION
       }
     ]
-  }
+  },
+  MAX_ATTACHMENT_SIZE: 5000000
 }; 

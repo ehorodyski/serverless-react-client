@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import HomePage from '../home/HomePage';
 import LoginPage from '../login/LoginPage';
 import RegisterPage from '../register/RegisterPage';
+import NewNote from '../notes/new-note/NewNote';
 import './Shared.css'
 
 const Routes = () => {
@@ -11,6 +12,7 @@ const Routes = () => {
       <Route path="/" exact component={HomePage} />
       <Route path="/login" exact component={LoginPage} />
       <Route path="/signup" exact component={RegisterPage} />
+      <Route path="/notes/new" exact component={NewNote} />
       <Route component={NotFound} />
     </Switch>
   );
