@@ -4,12 +4,12 @@ import Routes from './shared/Routes';
 import { UserProvider } from './shared/hooks/useUser';
 import './App.css';
 
-const App = (props) => {
+const App = () => {
 
   return (
     <UserProvider>
       <div className="App container">
-        <Header title="Foo"></Header>
+        <Header title="Notes"></Header>
         <Routes />
       </div>
     </UserProvider>

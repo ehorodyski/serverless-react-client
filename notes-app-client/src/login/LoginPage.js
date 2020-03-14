@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import LoaderButton from '../shared/components/LoaderButton';
 import { useUser } from '../shared/hooks/useUser';
 import './Login.css';
 
-const LoginPage = () => {
+const LoginPage = ({ history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const { login } = useUser();
 
   const validateForm = () => {
@@ -14,8 +16,15 @@ const LoginPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    login(email, password);
+    setIsLoading(true);
 
+    try {
+      await login(email, password);
+      history.push('/');
+    } catch (e) {
+      alert(e.message);
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -38,9 +47,15 @@ const LoginPage = () => {
             type="password"
           />
         </FormGroup>
-        <Button block bsSize="large" disabled={!validateForm()} type="submit">
+        <LoaderButton
+          block
+          type="submit"
+          bsSize="large"
+          isLoading={isLoading}
+          disabled={!validateForm()}
+        >
           Login
-        </Button>
+        </LoaderButton>
       </form>
     </div>
   );
