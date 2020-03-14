@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import LoaderButton from '../shared/components/LoaderButton';
 import { useUser } from '../shared/hooks/useUser';
+import { useFormFields } from '../shared/hooks/useFormFields';
 import './Login.css';
 
 const LoginPage = ({ history }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [fields, handleFieldChange] = useFormFields({ email: '', password: '' });
   const { login } = useUser();
 
   const validateForm = () => {
-    return email.length > 0 && password.length > 0;
+    return fields.email.length > 0 && fields.password.length > 0;
   };
 
   const handleSubmit = async (event) => {
@@ -19,7 +19,7 @@ const LoginPage = ({ history }) => {
     setIsLoading(true);
 
     try {
-      await login(email, password);
+      await login(fields.email, fields.password);
       history.push('/');
     } catch (e) {
       alert(e.message);
@@ -35,15 +35,15 @@ const LoginPage = ({ history }) => {
           <FormControl
             autoFocus
             type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
+            value={fields.email}
+            onChange={handleFieldChange}
           />
         </FormGroup>
         <FormGroup controlId="password" bsSize="large">
           <ControlLabel>Password</ControlLabel>
           <FormControl
-            value={password}
-            onChange={e => setPassword(e.target.value)}
+            value={fields.password}
+            onChange={handleFieldChange}
             type="password"
           />
         </FormGroup>
