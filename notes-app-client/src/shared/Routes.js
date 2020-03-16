@@ -1,18 +1,18 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import HomePage from '../home/HomePage';
 import LoginPage from '../login/LoginPage';
 import RegisterPage from '../register/RegisterPage';
-import NewNote from '../notes/new-note/NewNote';
+import NewNotePage from '../notes/new-note/NewNotePage';
+import NotesPage from '../notes/NotesPage';
 import './Shared.css'
 
 const Routes = () => {
   return (
     <Switch>
-      <Route path="/" exact component={HomePage} />
+      <Route path="/" exact component={NotesPage} />
       <Route path="/login" exact component={LoginPage} />
       <Route path="/signup" exact component={RegisterPage} />
-      <Route path="/notes/new" exact component={NewNote} />
+      <Route path="/notes/new" exact component={NewNotePage} />
       <Route component={NotFound} />
     </Switch>
   );

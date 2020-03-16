@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useState, createContext, useMemo } from 'react';
 import { Auth } from 'aws-amplify';
+import AmplifyConfiguration from '../../config';
 
 export const UserContext = createContext(null);
 
@@ -8,6 +9,7 @@ export const UserProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    Auth.configure(AmplifyConfiguration.Auth);
     Auth.currentAuthenticatedUser()
       .then(user => setUser(user))
       .catch(() => setUser(null));

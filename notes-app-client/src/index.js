@@ -6,15 +6,18 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Amplify from 'aws-amplify';
 import AmplifyConfiguration from './config';
+import { UserProvider } from './shared/hooks/useUser';
 
 const AppContainer = () => {
   return (
-    <Router>
-      <App />
-    </Router>
+    <UserProvider>
+      <Router>
+        <App />
+      </Router>
+    </UserProvider>
   );
 };
-
+console.log(AmplifyConfiguration);
 Amplify.configure(AmplifyConfiguration);
 ReactDOM.render(<AppContainer />, document.getElementById('root'));
 

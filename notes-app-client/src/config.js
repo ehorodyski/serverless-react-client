@@ -12,7 +12,8 @@ export const config = {
     USER_POOL_ID: 'us-east-1_X84QV0ZJ5',
     APP_CLIENT_ID: '4nnga3c3esvmmvrbl2581qfmcn',
     IDENTITY_POOL_ID: 'us-east-1:572027a6-b05b-470b-b3b5-c9da749935bd'
-  }
+  },
+  MAX_ATTACHMENT_SIZE: 5000000
 };
 
 export default {
@@ -37,5 +38,4 @@ export default {
       }
     ]
   },
-  MAX_ATTACHMENT_SIZE: 5000000
 }; 

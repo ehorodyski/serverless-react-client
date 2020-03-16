@@ -49,7 +49,6 @@ const RegisterPage = ({ history }) => {
     try {
       await confirmRegistration(fields.email, fields.confirmationCode);
       await login(fields.email, fields.password);
-      setIsLoading(false);
       history.push('/');
     } catch (e) {
       alert(e.message);

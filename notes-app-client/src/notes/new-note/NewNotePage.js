@@ -1,13 +1,15 @@
 import React, { useRef, useState } from 'react';
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import LoaderButton from '../../shared/components/LoaderButton';
-import config from '../../config';
+import { useNotes } from '../../shared/hooks/useNotes';
+import { config } from '../../config';
 import './NewNote.css';
 
-const NewNote = (props) => {
+const NewNotePage = ({ history }) => {
   const file = useRef(null);
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { createNote, s3Upload } = useNotes();
 
   const validateForm = () => {
     return content.length > 0;
@@ -26,7 +28,17 @@ const NewNote = (props) => {
     }
 
     setIsLoading(true);
+
+    try {
+      const attachment = file.current ? await s3Upload(file.current) : null;
+      await createNote({ content, attachment });
+      history.push("/");
+    } catch (e) {
+      alert(e);
+      setIsLoading(false);
+    }
   };
+
 
   return (
     <div className="NewNote">
@@ -56,4 +68,4 @@ const NewNote = (props) => {
     </div>
   );
 };
-export default NewNote;
+export default NewNotePage;
